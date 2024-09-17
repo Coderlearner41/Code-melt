@@ -15,8 +15,9 @@ const CodeBox = ({ title, writeCode, code }) => {
         closingBracket = ')';
         break;
       case '{':
-        closingBracket = '}';
+        closingBracket = '\n}';
         break;
+
       default:
         return; 
     }
@@ -33,6 +34,16 @@ const CodeBox = ({ title, writeCode, code }) => {
   };
 
   const handleKeyDown = (event) => {
+    if(event.key==="Tab"){
+      event.preventDefault();
+      const { selectionStart, selectionEnd } = event.target;
+      const newCode = code.slice(0, selectionStart) + "    " + code.slice(selectionEnd);
+      writeCode('code',newCode);
+      setTimeout(() => {
+        event.target.selectionStart = event.target.selectionEnd = selectionStart + 4;
+      }, 0);
+      return;
+    }
     const char = event.key;
 
     // Opening brackets handling

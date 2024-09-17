@@ -25,3 +25,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.container{
+  max-height: fit-content;
+}
